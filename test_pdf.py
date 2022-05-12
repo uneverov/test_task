@@ -1,13 +1,34 @@
 import os
-
 import pdfplumber as pdfplumber
+
+pdf_path = rf'{os.getcwd()}/pdf_files/test_task.pdf'
 
 
 def get_substring(content: str,
                   start: str,
-                  end: str):
+                  end: str) -> str:
+    """
+    Получаем часть строки
+    :param content:
+    :param start:
+    :param end:
+    :return:
+    """
     return (content[content.find(start) + len(start):content.
             rfind(end)].replace('\n', '').rstrip())
+
+
+def test_check_pdf(pdf_data,
+                   json_data):
+    """
+    Проверяет наличие элементов (слов-ключей) в pdf
+    Не проверяет наличие штрихкодов
+    """
+    elements = json_data
+    words = pdf_data
+    for element in elements.values():
+        assert element in words, ('Не все обязательные элементы'
+                                  'присутсвуют на странице согласно структуре')
 
 
 def get_dict_from_pdf(pdf_path: str) -> dict:
@@ -82,7 +103,6 @@ def get_dict_from_pdf(pdf_path: str) -> dict:
     return doc_content
 
 
-file_path = rf'{os.getcwd()}/pdf_files/'
-files = os.listdir(file_path)
+files = os.listdir(rf'{os.getcwd()}/pdf_files')
 for file in files:
-    print(get_dict_from_pdf(file_path + file))
+    print(get_dict_from_pdf(rf'{os.getcwd()}/pdf_files/' + file))
