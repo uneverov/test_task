@@ -19,7 +19,7 @@ def json_data():
 @pytest.fixture
 def pdf_data():
     """
-    Передаем в тест координаты всех слов в pdf файле
+    Передаем в теasdст координаты всех слов в pdf файле
     :return:
     """
     with pdfplumber.open(rf'{os.getcwd()}/pdf_files/test_task.pdf') as pdf:
